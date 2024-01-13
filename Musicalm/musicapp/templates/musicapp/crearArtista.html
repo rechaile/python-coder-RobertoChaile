@@ -9,3 +9,18 @@ Musicalm
 {% block subtitulo %}
 Aquí podes crear los Artistas para la base de datos de Musicalm
 {% endblock %} 
+
+{% block form %}
+
+                           
+<form action="" method="POST" class="container"> {% csrf_token %}
+   
+        <table style="margin-bottom: 16px;">
+            {{formArtist.as_table}}
+        </table>
+    
+        <input class="btn btn-primary" type="submit" value="Guardar">
+
+</form>
+
+{% endblock %} 

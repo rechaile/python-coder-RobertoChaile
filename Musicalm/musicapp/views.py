@@ -23,21 +23,31 @@ def users(request):
 def createUsers(request):
     return render(request, "musicapp/registro.html")
 
-def createSongs(request):
+def crearCanciones(request):
     if request.method == "POST":
         formCanciones = formSong(request.POST)
         if formCanciones.is_valid():
             info = formCanciones.cleaned_data
-            
-            cancion = Song(name=info['name'],album=info['album'],year=info['year'],artist=info['artist'], genre=info['genre'])
-            
-            cancion.save()
-            
-            return render(request, "musicapp/crearCancion.html")
-        else: 
-            formCanciones = formSong()
-        return render(request, "musicapp/crearCancion.html", {'formSong':formCanciones})
-def createArtist(request):
+            song = Song(name=info['name'], album=info['album'], year=info['year'], artist=info['artist'], genre=info['genre'])
+            song.save()
+            return render(request, "musicapp/canciones.html")
+        
+    else:  # GET request
+        formCanciones = formSong()
+        return render(request, "musicapp/crearCancion.html", {'formSong': formCanciones})
+        
+def crearArtista(request):
+    if request.method == "POST":
+        formArtista = formArtist(request.POST)
+        if formArtista.is_valid():
+            info = formArtista.cleaned_data
+            artist = Artist(name=info['name'], genre=info['genre'], country=info['country'])
+            artist.save()
+            return render(request, "musicapp/artistas.html")
+        
+    else:  # GET request
+        formArtista = formArtist()
+        return render(request, "musicapp/crearArtista.html", {'formArtist': formArtista})
     return render(request, "musicapp/crearArtista.html")
 
 def createAlbum(request):

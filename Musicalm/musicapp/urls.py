@@ -8,7 +8,7 @@ urlpatterns = [
     path('artists/', artists, name='Artistas'),
     path('users/', users, name='Usuarios'),
     path('register/', createUsers, name='Registro'),
-    path('crearCanciones/', createSongs, name='CrearCanciones'),
+    path('crearCanciones/', crearCanciones, name='CrearCanciones'),
     path('crearAlbums/', createAlbum, name='CrearAlbums'),
-    path('crearArtistas/', createArtist, name='CrearArtistas'),
+    path('crearArtistas/', crearArtista, name='CrearArtistas'),
 ]

@@ -7,9 +7,20 @@ Musicalm
 {% endblock %}    
 
 {% block subtitulo %}
-Aquí podes crear las Canciones para la base de datos de Musicalm
+Aquí podes crear canciones que te vuelan la cabeza
 {% endblock %} 
 
-<form action="" method="POST" > {% csrf_token %}
+{% block form %}
+
+                           
+<form action="" method="POST" class="container"> {% csrf_token %}
     
+        <table style="margin-bottom: 16px;">
+            {{formSong.as_table}}
+        </table>
+    
+        <input class="btn btn-primary" type="submit" value="Guardar">
+ 
 </form>
+
+{% endblock %} 
