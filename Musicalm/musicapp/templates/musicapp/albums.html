@@ -7,5 +7,40 @@ Musicalm
 {% endblock %}    
 
 {% block subtitulo %}
-Aquí podes buscar ese album que siempre te gustó y te vuela la cabeza
+Aquí podes buscar esos discos que te vuelan la peluca 
+
+<form action="/musicapp/resultadosAlbum/" method="GET" class="m-4">
+
+    <input type="text" name="album" id="album">
+    <input type="submit" value="Buscar" class="btn btn-outline-light mx-2">
+
+</form>
+
+<p> Estas buscando: {{album}}</p>
+
+<ul class="list-group">
+
+    {% for album in albums %}
+    <li class="list-group-item"> Nombre: {{album.name}} ---- Artista: {{album.artist}} ---- Género: {{album.genre}}</li>
+
+    {% endfor %}
+    
+   
+</ul>
+
+
+
+{% endblock %} 
+
+{% block section %}
+<div class=" d-flex justify-items-center m-auto mt-4 py-4">
+    <p class="masthead-subheading font-weight-light m-4"> Si no encontraste tu album o disco podés agregarla a nuestra base de datos aquí</p>
+    <div class=" d-block m-4">
+       <button class=" btn btn-primary">
+            <a href="{% url 'CrearAlbums' %}" class="text-white text-decoration-none">
+                Agregar album o disco
+            </a>
+       </button>
+    </div>
+</div>
 {% endblock %} 

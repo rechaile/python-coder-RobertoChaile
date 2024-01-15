@@ -7,20 +7,21 @@ Musicalm
 {% endblock %}    
 
 {% block subtitulo %}
-Aquí podes crear los Artistas para la base de datos de Musicalm
-{% endblock %} 
+Aquí podes crear los artistas que te acompañan desde siempre
 
-{% block form %}
+<form action="" method="POST" class="m-4"> {% csrf_token %}
 
-                           
-<form action="" method="POST" class="container"> {% csrf_token %}
-   
-        <table style="margin-bottom: 16px;">
-            {{formArtist.as_table}}
-        </table>
-    
-        <input class="btn btn-primary" type="submit" value="Guardar">
+    <table class="m-4">
+
+        {{formArtist.as_table}}
+
+
+    </table>
+
+    <input type="submit" value="Guardar" class="btn btn-outline-light">
 
 </form>
+
+
 
 {% endblock %} 

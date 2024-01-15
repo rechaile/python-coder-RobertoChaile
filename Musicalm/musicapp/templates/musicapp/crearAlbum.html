@@ -7,5 +7,21 @@ Musicalm
 {% endblock %}    
 
 {% block subtitulo %}
-Aquí podes crear los Albums para la base de datos de Musicalm
+Aquí podes crear los albums o discos de tus artistas favoritos
+
+<form action="" method="POST" class="m-4"> {% csrf_token %}
+
+    <table class="m-4">
+
+        {{formAlbum.as_table}}
+
+
+    </table>
+
+    <input type="submit" value="Guardar" class="btn btn-outline-light">
+
+</form>
+
+
+
 {% endblock %} 

@@ -2,10 +2,27 @@
 
 {% load static %}
 
+
 {% block titulo %}
 Musicalm
 {% endblock %}    
 
 {% block subtitulo %}
-Aquí podes registrarte a la comunidad de Musicalm
+Aquí podes registrarte para empezar a buscar la musica que te hace bien
+
+<form action="" method="POST" class="m-4"> {% csrf_token %}
+
+    <table class="m-4">
+
+        {{formRegistro.as_table}}
+
+
+    </table>
+
+    <input type="submit" value="Registrarse" class="btn btn-outline-light">
+
+</form>
+
+
+
 {% endblock %} 

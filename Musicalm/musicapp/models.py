@@ -18,7 +18,3 @@ class Album(models.Model):
     artist = models.CharField(max_length=100)
     genre = models.CharField(max_length=100)
     year = models.IntegerField()
-
-class User(models.Model):
-    username = models.EmailField()
-    password = models.CharField(max_length=100)

@@ -7,5 +7,40 @@ Musicalm
 {% endblock %}    
 
 {% block subtitulo %}
-Aquí podes buscar a tus ídolos de la música
+Aquí podes buscar esos artistas y bandas que la rompen
+
+<form action="/musicapp/resultadosArtista/" method="GET" class="m-4">
+
+    <input type="text" name="artista" id="artista">
+    <input type="submit" value="Buscar" class="btn btn-outline-light mx-2">
+
+</form>
+
+<p> Estas buscando: {{artista}}</p>
+
+<ul class="list-group">
+
+    {% for artista in artistas %}
+    <li class="list-group-item"> Artista: {{artista.name}} ---- Género: {{artista.genre}} ---- País: {{artista.country}}</li>
+
+    {% endfor %}
+    
+   
+</ul>
+
+
+
+{% endblock %} 
+
+{% block section %}
+<div class=" d-flex justify-items-center m-auto mt-4 py-4">
+    <p class="masthead-subheading font-weight-light m-4"> Si no encontraste tu artista podés agregarla a nuestra base de datos aquí</p>
+    <div class=" d-block m-4">
+       <button class=" btn btn-primary">
+            <a href="{% url 'CrearArtistas' %}" class="text-white text-decoration-none">
+                Agregar artista
+            </a>
+       </button>
+    </div>
+</div>
 {% endblock %} 

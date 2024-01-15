@@ -17,11 +17,6 @@ def artists(request):
 def albums(request):
     return render(request, "musicapp/albums.html")
 
-def users(request):
-    return render(request, "musicapp/usuarios.html")
-
-def createUsers(request):
-    return render(request, "musicapp/registro.html")
 
 def createSong(request):
     if request.method == "POST":
@@ -76,5 +71,48 @@ def crearArtista(request):
         return render(request, "musicapp/crearArtista.html", {'formArtist': formArtista})
     return render(request, "musicapp/crearArtista.html")
 
+def resultArtists(request):
+    
+    if request.GET['artista']:
+        
+        artista=request.GET['artista']
+        
+        artistas = Artist.objects.filter(name__icontains=artista)
+        
+        return render(request, "musicapp/artistas.html", {"artistas": artistas, 'artista': artista})
+    
+    else:
+        
+        respuesta = "No enviaste datos"
+    
+    return HttpResponse(respuesta)
+
 def createAlbum(request):
+    if request.method == "POST":
+        formDisco = formAlbum(request.POST)
+        if formDisco.is_valid():
+            info = formDisco.cleaned_data
+            album = Album(name=info['name'], artist=info['artist'], genre=info['genre'], year=info['year'])
+            album.save()
+            return render(request, "musicapp/albums.html")
+        
+    else:  # GET request
+        formDisco = formAlbum()
+        return render(request, "musicapp/crearAlbum.html", {'formAlbum': formDisco})
     return render(request, "musicapp/crearAlbum.html")
+
+def resultAlbum(request):
+    
+    if request.GET['album']:
+        
+        album=request.GET['album']
+        
+        albums = Album.objects.filter(name__icontains=album)
+        
+        return render(request, "musicapp/albums.html", {"albums": albums, 'album': album})
+    
+    else:
+        
+        respuesta = "No enviaste datos"
+    
+    return HttpResponse(respuesta)

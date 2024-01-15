@@ -7,5 +7,40 @@ Musicalm
 {% endblock %}    
 
 {% block subtitulo %}
-Aquí podes ver quienes se sumaron a la comunidad de Musicalm
+Aquí podes buscar esos artistas y bandas que la rompen
+
+<form action="/musicapp/resultadosUsuario/" method="GET" class="m-4">
+
+    <input type="email" name="usuario" id="usuario">
+    <input type="submit" value="Buscar" class="btn btn-outline-light mx-2">
+
+</form>
+
+<p> Estas buscando: {{usuario}}</p>
+
+<ul class="list-group">
+
+    {% for usuario in usuarios %}
+    <li class="list-group-item"> Nombre de usuario: {{usuario.username}} </li>
+
+    {% endfor %}
+    
+   
+</ul>
+
+
+
+{% endblock %} 
+
+{% block section %}
+<div class=" d-flex justify-items-center m-auto mt-4 py-4">
+    <p class="masthead-subheading font-weight-light m-4"> Si todavía no te registraste, hace clic aquí</p>
+    <div class=" d-block m-4">
+       <button class=" btn btn-primary">
+            <a href="{% url 'Registro' %}" class="text-white text-decoration-none">
+               Registrarse
+            </a>
+       </button>
+    </div>
+</div>
 {% endblock %} 
