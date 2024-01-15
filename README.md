@@ -37,7 +37,6 @@ El proyecto contiene cuatro modelos de objetos que serviran para crear los eleme
 - Modelo de Canciones
 - Modelo de Artistas
 - Modelo de Albums o discos
-- Modelo de Usuario para registrarse
 
 Si se quiere editar o administrar los elementos de la base de datos, debe user las credenciales de administrador:
 **Usuario:** roberto
