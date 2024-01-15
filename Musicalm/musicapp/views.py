@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from musicapp.forms import *
 from musicapp.models import *
@@ -23,18 +23,44 @@ def users(request):
 def createUsers(request):
     return render(request, "musicapp/registro.html")
 
-def crearCanciones(request):
+def createSong(request):
     if request.method == "POST":
         formCanciones = formSong(request.POST)
+        
         if formCanciones.is_valid():
             info = formCanciones.cleaned_data
-            song = Song(name=info['name'], album=info['album'], year=info['year'], artist=info['artist'], genre=info['genre'])
-            song.save()
+            
+            cancion = Song(name=info['name'], album=info['album'], year=info['year'], artist=info['artist'], genre=info['genre'])
+            
+            cancion.save()
+            
             return render(request, "musicapp/canciones.html")
         
-    else:  # GET request
+    else:
+        
         formCanciones = formSong()
-        return render(request, "musicapp/crearCancion.html", {'formSong': formCanciones})
+        
+        return render(request, "musicapp/crearCancion.html", {"formCancion":formCanciones})
+
+
+
+def resultSongs(request):
+    
+    if request.GET['cancion']:
+        
+        song=request.GET['cancion']
+        
+        canciones = Song.objects.filter(name__icontains=song)
+        
+        return render(request, "musicapp/canciones.html", {"canciones": canciones, 'cancion': song})
+    
+    else:
+        
+        respuesta = "No enviaste datos"
+    
+    return HttpResponse(respuesta)
+
+
         
 def crearArtista(request):
     if request.method == "POST":

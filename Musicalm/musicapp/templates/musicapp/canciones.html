@@ -8,4 +8,39 @@ Musicalm
 
 {% block subtitulo %}
 Aquí podes buscar esa canción que necesitás para levantar los ánimos
+
+<form action="/musicapp/resultadosCancion/" method="GET" class="m-4">
+
+    <input type="text" name="cancion" id="cancion">
+    <input type="submit" value="Buscar" class="btn btn-outline-light mx-2">
+
+</form>
+
+<p> Estas buscando: {{cancion}}</p>
+
+<ul class="list-group">
+
+    {% for cancion in canciones %}
+    <li class="list-group-item"> Canción: {{cancion.name}} ---- Artista: {{cancion.artist}}</li>
+
+    {% endfor %}
+    
+   
+</ul>
+
+
+
+{% endblock %} 
+
+{% block section %}
+<div class=" d-flex justify-items-center m-auto mt-4 py-4">
+    <p class="masthead-subheading font-weight-light m-4"> Si no encontraste tu canción podés agregarla a nuestra base de datos aquí</p>
+    <div class=" d-block m-4">
+       <button class=" btn btn-primary">
+            <a href="{% url 'CrearCanciones' %}" class="text-white text-decoration-none">
+                Agregar canción
+            </a>
+       </button>
+    </div>
+</div>
 {% endblock %} 

@@ -3,12 +3,13 @@ from musicapp.views import *
 
 urlpatterns = [
     path('', inicio, name='Inicio'),
-    path('songs/', songs, name='Canciones'),
+    path('canciones/', songs, name='canciones'),
     path('albums/', albums, name='Albums'),
-    path('artists/', artists, name='Artistas'),
-    path('users/', users, name='Usuarios'),
-    path('register/', createUsers, name='Registro'),
-    path('crearCanciones/', crearCanciones, name='CrearCanciones'),
+    path('artistas/', artists, name='Artistas'),
+    path('usuarios/', users, name='Usuarios'),
+    path('registro/', createUsers, name='Registro'),
+    path('crearCanciones/', createSong, name='CrearCanciones'),
     path('crearAlbums/', createAlbum, name='CrearAlbums'),
     path('crearArtistas/', crearArtista, name='CrearArtistas'),
+    path('resultadosCancion/', resultSongs, name='resultadosCanciones')
 ]

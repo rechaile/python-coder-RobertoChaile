@@ -7,20 +7,30 @@ Musicalm
 {% endblock %}    
 
 {% block subtitulo %}
-Aquí podes crear canciones que te vuelan la cabeza
-{% endblock %} 
+Aquí podes crear las canciones que te acompañan día a día
 
-{% block form %}
+<form action="" method="POST" class="m-4"> {% csrf_token %}
 
-                           
-<form action="" method="POST" class="container"> {% csrf_token %}
-    
-        <table style="margin-bottom: 16px;">
-            {{formSong.as_table}}
-        </table>
-    
-        <input class="btn btn-primary" type="submit" value="Guardar">
- 
+    <table class="m-4">
+
+        {{formCancion.as_table}}
+
+
+    </table>
+
+    <input type="submit" value="Guardar" class="btn btn-outline-light">
+
 </form>
 
+
+
 {% endblock %} 
+    
+    
+
+
+
+
+
+
+ 
