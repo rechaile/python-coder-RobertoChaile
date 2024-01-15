@@ -10,13 +10,13 @@ El MVP consta de las siguientes funciones:
 - Crear un repositorio de canciones
 - Crear un repositorio de discos
 - Crear un repositorio de artistas
-- Registrarme como usuario
+
 
 En esta primera instancia, sólo estan implemetadas las funciones de:
 - Crear un repositorio de canciones
 - Crear un repositorio de discos
 - Crear un repositorio de artistas
-- Registrarme como usuario
+
 
 Para probar la implementación de este proyecto en tu ordenador primero debes hacer
 
