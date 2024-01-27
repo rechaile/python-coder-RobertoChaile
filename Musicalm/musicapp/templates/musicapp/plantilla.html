@@ -31,6 +31,14 @@
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'canciones' %}">Canciones</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'Albums' %}">Albums</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'Artistas' %}">Artistas</a></li>
+                        
+                        {% if user.is_authenticated %}
+                        <li class="nav-item mx-0 mx-lg-1"><a class="btn btn-danger" href="{% url 'logout' %}">Cerrar sesión</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="btn btn-outline-light" href="{% url 'EditarPerfil' %}">Editar Perfil</a></li>
+                        {% else %}
+                        <li class="nav-item mx-0 mx-lg-1"><a class="btn btn-primary" href="{% url 'Login' %}">Iniciar sesión</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="btn btn-outline-light" href="{% url 'Registro' %}">Registrarse</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

@@ -16,23 +16,44 @@ Aquí podes buscar esa canción que necesitás para levantar los ánimos
 
 </form>
 
+
 <p> Estas buscando: {{cancion}}</p>
 
 <ul class="list-group">
 
-    {% for cancion in canciones %}
-    <li class="list-group-item"> Canción: {{cancion.name}} ---- Artista: {{cancion.artist}}</li>
 
-    {% endfor %}
+    {% if canciones %}
+    <ul class="list-group">
+        {% for cancion in canciones %}
+            <li class="list-group-item">
+                Canción: {{ cancion.name }} ---- Artista: {{ cancion.artist }}
+                <form action="{% url 'edit_song' cancion.pk %}" method="get" style="display: inline;">
+                    <button type="submit" class="btn btn-primary btn-sm">Editar</button>
+                </form>
+                <form action="{% url 'delete_song' cancion.pk %}" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta canción?');" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        {% if mensaje %}
+            <p class="alert alert-warning">{{ mensaje }}</p>
+        {% endif %}
+    {% endif %}
     
    
 </ul>
 
+<a href="{% url 'all_songs' %}" class="btn btn-secondary mt-4">Ver todas las canciones</a>
 
 
 {% endblock %} 
 
 {% block section %}
+
+
 <div class=" d-flex justify-items-center m-auto mt-4 py-4">
     <p class="masthead-subheading font-weight-light m-4"> Si no encontraste tu canción podés agregarla a nuestra base de datos aquí</p>
     <div class=" d-block m-4">

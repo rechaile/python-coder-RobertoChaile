@@ -1,0 +1,19 @@
+{% extends "musicapp/plantilla.html" %}
+
+{% load static %}
+
+{% block titulo %}
+Musicalm
+{% endblock %}    
+
+{% block subtitulo %}
+Aquí podes crear las canciones que te acompañan día a día
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-secondary">Guardar cambios</button>
+    <a href="{% url 'canciones' %}" class="btn btn-danger">Cancelar</a>
+</form>
+
+{% endblock %} 

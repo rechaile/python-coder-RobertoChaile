@@ -20,15 +20,23 @@ Aquí podes buscar esos artistas y bandas que la rompen
 
 <ul class="list-group">
 
-    {% for artista in artistas %}
-    <li class="list-group-item"> Artista: {{artista.name}} ---- Género: {{artista.genre}} ---- País: {{artista.country}}</li>
 
-    {% endfor %}
+    {% if artistas %}
+    <ul class="list-group">
+        {% for artista in artistas %}
+        <li class="list-group-item"> Nombre: {{artista.name}} ---- País: {{artista.country}}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        {% if mensaje %}
+            <p class="alert alert-warning">{{ mensaje }}</p>
+        {% endif %}
+    {% endif %}
     
    
 </ul>
 
-
+<a href="{% url 'all_artists' %}" class="btn btn-secondary mt-4">Ver todos los artistas</a>
 
 {% endblock %} 
 
