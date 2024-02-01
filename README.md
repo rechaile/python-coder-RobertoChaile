@@ -77,4 +77,4 @@ Link al DEMO: https://drive.google.com/file/d/12GLVHcRcW1r8sq3OL6gWUpzLkB1WBSBx/
 |--------------|---------------|-----------|
 | Login        | El usuario debe poder hacer login | Si | 
 | Registro     | El usuario debe poder registrarse | Si |
-| Buscar canción por esstado de ánimo | El usuario debe poder buscar una canción según su estado de ánimo, artista y género, al enviar el formulario debe ver un listado de canciones, que indiquen artista, album, genero y un botón para ir al link de la canción en Spotify | Si |
+| Buscar canción por estado de ánimo | El usuario debe poder buscar una canción según su estado de ánimo, artista y género, al enviar el formulario debe ver un listado de canciones, que indiquen artista, album, genero y un botón para ir al link de la canción en Spotify | Si |
