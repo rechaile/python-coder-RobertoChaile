@@ -5,6 +5,9 @@ from django.contrib.auth import login, authenticate, logout
 from musicapp.forms import *
 from musicapp.models import *
 from django.contrib.auth.decorators import login_required
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
+
 
 # Create your views here.
 
@@ -84,13 +87,19 @@ def inicio(request):
 
 @login_required
 def songs(request):
+    if not request.user.is_staff:
+        return redirect('Inicio')
     return render(request, "musicapp/canciones.html")
 @login_required
 def artists(request):
+    if not request.user.is_staff:
+        return redirect('Inicio')
     return render(request, "musicapp/artistas.html")
 
 @login_required
 def albums(request):
+    if not request.user.is_staff:
+        return redirect('Inicio')
     return render(request, "musicapp/albums.html")
 
 
@@ -116,6 +125,9 @@ def createSong(request):
 
 @login_required
 def resultSongs(request):
+    if not request.user.is_staff:
+        return redirect('Inicio')
+    
     mensaje = None
     
     if request.method == 'GET' and 'cancion' in request.GET:
@@ -174,6 +186,77 @@ def deleteSong(request, song_id):
     return render(request, 'musicapp/delete_song.html', {'song': song})
 
 
+def SearchSongbyMood(request):
+    if request.method == 'POST':
+        form = BusquedaCancionesForm(request.POST)
+        if form.is_valid():
+            estado_animo = form.cleaned_data['estado_animo']
+            banda_favorita = form.cleaned_data['banda_favorita']
+            genero_favorito = form.cleaned_data['genero_favorito']
+
+            # Realizar la búsqueda en la API de Spotify
+            resultados = search_spotify(estado_animo, banda_favorita, genero_favorito)
+
+            # Ejemplo de cómo guardar la consulta en la base de datos
+            if not request.user.is_anonymous and not request.user.is_staff:
+                consulta = ConsultaUsuario.objects.create(usuario=request.user, estado_animo=estado_animo, banda_favorita=banda_favorita, genero_favorito=genero_favorito)
+                consulta.save()
+
+            # Verificar si se encontraron resultados
+            if resultados:
+                # Procesar los resultados y devolverlos a la plantilla HTML
+                return render(request, 'musicapp/resultados_busqueda.html', {'form': form, 'resultados': resultados})
+            else:
+                # Si no se encontraron resultados, mostrar un mensaje en la plantilla HTML
+                mensaje = "No se encontraron canciones que coincidan con los criterios de búsqueda."
+                return render(request, 'musicapp/resultados_busqueda.html', {'mensaje': mensaje})
+    else:
+        form = BusquedaCancionesForm()
+
+    return render(request, 'musicapp/resultados_busqueda.html', {'form': form})
+
+def search_spotify(estado_animo, banda_favorita, genero_favorito):
+    # Configurar las credenciales del cliente de Spotify
+    client_credentials_manager = SpotifyClientCredentials(client_id='TU-CLIENT-ID', client_secret='TU-CLIENT-SECRET')
+    
+    # Crear una instancia del objeto Spotipy
+    sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+
+    # Realizar la búsqueda de canciones basadas en la banda favorita y el género favorito
+    query = f'artist:{banda_favorita} genre:{genero_favorito}'
+    results_canciones = sp.search(q=query, limit=5, type='track')
+    
+    results_listas = sp.category_playlists(category_id='mood', country='US', limit=1, offset=0)
+
+    # Procesar los resultados de las canciones
+    canciones = []
+    for track in results_canciones['tracks']['items']:
+        cancion = {
+            'nombre_cancion': track['name'],
+            'artista': track['artists'][0]['name'],
+            'album': track['album']['name'] if 'album' in track else '',  # Verificar si la clave 'album' está presente
+            'iframe_spotify': track['external_urls']['spotify'] if 'external_urls' in track else '',  # Verificar si la clave 'external_urls' está presente
+        }
+        canciones.append(cancion)
+
+    # Procesar los resultados de las listas de reproducción
+    playlists = []
+    for playlist in results_listas['playlists']['items']:
+        playlists.append(playlist['id'])
+
+    # Obtener las canciones de las primeras 5 listas de reproducción
+    for playlist_id in playlists[:5]:
+        playlist_tracks = sp.playlist_tracks(playlist_id, fields='items(track(name, artists(name), album(name), external_urls(spotify))), total', limit=5)
+        for track in playlist_tracks['items']:
+            cancion = {
+                'nombre_cancion': track['track']['name'],
+                'artista': track['track']['artists'][0]['name'],
+                'album': track['track']['album']['name'] if 'album' in track['track'] else '',  # Verificar si la clave 'album' está presente
+                'iframe_spotify': track['track']['external_urls']['spotify'] if 'external_urls' in track['track'] else '',  # Verificar si la clave 'external_urls' está presente
+            }
+            canciones.append(cancion)
+
+    return canciones
         
 def crearArtista(request):
     if request.method == "POST":
@@ -191,6 +274,9 @@ def crearArtista(request):
 
 @login_required
 def resultArtists(request):
+    if not request.user.is_staff:
+        return redirect('Inicio')
+    
     mensaje = None
     
     if request.method == 'GET' and 'artista' in request.GET:
@@ -231,6 +317,10 @@ def createAlbum(request):
 
 @login_required
 def resultAlbum(request):
+    
+    if not request.user.is_staff:
+        return redirect('Inicio')
+    
     mensaje = None
     
     if request.method == 'GET' and 'album' in request.GET:

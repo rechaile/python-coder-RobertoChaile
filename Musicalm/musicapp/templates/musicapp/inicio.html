@@ -7,12 +7,27 @@ Musicalm
 {% endblock %}    
 
 {% block subtitulo %}
-Encontrá la canción que necesitás para cambiar el ánimo
-<br>
+
 {{mensaje}}
+
+<div class="d-flex flex-column align-items-center m-auto mt-4 py-4">
+    <p class="masthead-subheading font-weight-light px-2 mx-4 mb-4"> Empezá a buscar esa canción que te cambie el ánimo!</p>
+    {% if user.is_authenticated and not user.is_staff %}
+        <div>
+            <button class="btn btn-secondary">
+                <a href="{% url 'Resultados' %}" class="text-white text-decoration-none">
+                    Buscar música
+                </a>
+            </button>
+        </div>
+    {% endif %}
+</div>
 {% endblock %} 
 
 {% block section %}
+
+    
+
     <div class=" d-flex justify-items-center">
         <img src="{% static 'musicapp/assets/img/escucha.png' %}" alt="Persona escuchando musica" class="m-auto my-4 w-25">
     </div>

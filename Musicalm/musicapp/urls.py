@@ -8,6 +8,7 @@ urlpatterns = [
     path('register/', registro, name='Registro'),
     path('editProfile/', editUser, name='EditarPerfil'),
     path('logout/', cerrarSesion, name='logout'),
+    path('resultados/', SearchSongbyMood, name='Resultados'),
     path('canciones/', songs, name='canciones'),
     path('albums/', albums, name='Albums'),
     path('artistas/', artists, name='Artistas'),

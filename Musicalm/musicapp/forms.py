@@ -38,3 +38,9 @@ class EditarUsuario(UserCreationForm):
     class Meta:
             model = User
             fields = [ "email", "first_name", "last_name", "password1", "password2"]
+            
+
+class BusquedaCancionesForm(forms.Form):
+    estado_animo = forms.CharField(max_length=100)
+    banda_favorita = forms.CharField(max_length=100)
+    genero_favorito = forms.CharField(max_length=100)
